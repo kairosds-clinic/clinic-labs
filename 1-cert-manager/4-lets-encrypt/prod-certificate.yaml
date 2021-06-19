@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nginx-cert
+  namespace: nginx
+spec:
+  commonName: clinic-cert-manager.kairosds.com
+  secretName: nginx-cert
+  dnsNames:
+    - clinic-cert-manager.kairosds.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

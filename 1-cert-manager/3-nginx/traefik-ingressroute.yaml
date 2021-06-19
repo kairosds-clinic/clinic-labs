@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-ingress-https
+  namespace: nginx
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`clinic-cert-manager.kairosds.com`)
+      kind: Rule
+      services:
+        - name: nginx
+          port: 80
+  tls:
+    secretName: nginx-cert
