@@ -1,0 +1,44 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-only
+  namespace: nginx
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-ingress-https
+  namespace: nginx
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`clinic-cert-manager.kairosds.com`)
+      kind: Rule
+      services:
+        - name: nginx
+          port: 80
+  tls:
+    secretName: nginx-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-ingress-http
+  namespace: nginx
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`clinic-cert-manager.kairosds.com`)
+      middlewares:
+        - name: https-only
+      kind: Rule
+      services:
+        - name: nginx
+          port: 80
+
