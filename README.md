@@ -40,3 +40,4 @@ con una sesión puramente técnica para esa pieza en concreto configurada de man
 |Fecha     |Sesión                                  |
 |----------|----------------------------------------|
 |2021-06-16|[cert-manager](1-cert-manager/README.md)|
+|2021-06-24|[argocd](2-argocd/README.md)            |
